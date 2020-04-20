@@ -32,7 +32,7 @@ final class AutoImportPass extends FormatterPass {
 
 	public function format($source = '') {
 		$namespaceCount = 0;
-		$tokens = token_get_all($source);
+		$tokens = token_get_all($source, TOKEN_PARSE);
 		while (list(, $token) = eachArray($tokens)) {
 			list($id, $text) = $this->getToken($token);
 			if (T_NAMESPACE == $id && !$this->rightUsefulTokenIs(T_NS_SEPARATOR)) {
@@ -112,7 +112,7 @@ final class AutoImportPass extends FormatterPass {
 			}
 		}
 
-		$tokens = token_get_all($source);
+		$tokens = token_get_all($source, TOKEN_PARSE);
 		$aliasCount = [];
 		$namespaceName = '';
 		while (list($index, $token) = eachArray($tokens)) {
@@ -155,7 +155,7 @@ final class AutoImportPass extends FormatterPass {
 		}
 		$autoImportCandidates = array_intersect_key($classList, $aliasCount);
 
-		$tokens = token_get_all($source);
+		$tokens = token_get_all($source, TOKEN_PARSE);
 		$touchedNamespace = false;
 		$touchedFunction = false;
 		$return = '';
@@ -198,7 +198,7 @@ final class AutoImportPass extends FormatterPass {
 	}
 
 	private function usedAliasList($source) {
-		$tokens = token_get_all($source);
+		$tokens = token_get_all($source, TOKEN_PARSE);
 		$useStack = [];
 		$newTokens = [];
 		$nextTokens = [];

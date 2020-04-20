@@ -22,7 +22,7 @@ final class MergeParenCloseWithCurlyOpen extends FormatterPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 
 		// It scans for curly closes preceded by parentheses, string or

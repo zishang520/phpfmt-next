@@ -31,7 +31,7 @@ class ReindentAndAlignObjOps extends AdditionalPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 
 		$levelCounter = 0;

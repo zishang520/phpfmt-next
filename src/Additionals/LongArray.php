@@ -22,7 +22,7 @@ final class LongArray extends AdditionalPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 
 		$contextStack = [];
 		while (list($index, $token) = eachArray($this->tkns)) {

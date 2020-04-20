@@ -20,7 +20,7 @@ final class AutoSemicolon extends AdditionalPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 		$parenStack = [];
 		$curlyStack = [];
@@ -85,7 +85,7 @@ final class AutoSemicolon extends AdditionalPass {
 				case T_WHITESPACE:
 					if (!$this->hasLn($text)) {
 						$this->appendCode($text);
-						continue;
+						continue 2;
 					}
 					if ($touchedSingleColon && $ternary) {
 						$touchedSingleColon = false;
@@ -202,7 +202,7 @@ final class AutoSemicolon extends AdditionalPass {
 						])
 					) {
 						$this->appendCode($text);
-						continue;
+						continue 2;
 					}
 					if (
 						$this->rightUsefulTokenIs([
@@ -242,7 +242,7 @@ final class AutoSemicolon extends AdditionalPass {
 						])
 					) {
 						$this->appendCode($text);
-						continue;
+						continue 2;
 					}
 
 					if (
@@ -250,7 +250,7 @@ final class AutoSemicolon extends AdditionalPass {
 						ST_PARENTHESES_OPEN != $lastParen
 					) {
 						$this->appendCode($text);
-						continue;
+						continue 2;
 					}
 
 					if (
@@ -262,12 +262,12 @@ final class AutoSemicolon extends AdditionalPass {
 						)
 					) {
 						$this->appendCode($text);
-						continue;
+						continue 2;
 					}
 
 					if (0 != $ternary) {
 						$this->appendCode($text);
-						continue;
+						continue 2;
 					}
 
 					$this->appendCode(ST_SEMI_COLON . $text);

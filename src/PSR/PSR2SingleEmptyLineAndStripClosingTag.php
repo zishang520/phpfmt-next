@@ -18,7 +18,7 @@ final class PSR2SingleEmptyLineAndStripClosingTag extends FormatterPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$tokenCount = count($this->tkns) - 1;
 		while (list($index, $token) = eachArray($this->tkns)) {
 			list($id) = $this->getToken($token);

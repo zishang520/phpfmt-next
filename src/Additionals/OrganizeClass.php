@@ -30,7 +30,7 @@ class OrganizeClass extends AdditionalPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 
 		// It scans for classes/interfaces/traits bodies and organizes functions internally.
 		$return = '';
@@ -114,7 +114,7 @@ EOT;
 	}
 
 	public function orderMethods($source) {
-		$tokens = token_get_all($source);
+		$tokens = token_get_all($source, TOKEN_PARSE);
 
 		// It takes classes' body, and looks for methods, constants
 		// and attributes, and recreates an organized class out of them.

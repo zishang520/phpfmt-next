@@ -44,7 +44,7 @@ final class RefactorPass extends FormatterPass {
 			return $v[1];
 		}, $to));
 
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 		$skipCall = null;
 		while (list($index, $token) = eachArray($this->tkns)) {
@@ -116,7 +116,7 @@ final class RefactorPass extends FormatterPass {
 	}
 
 	private function setFrom($from) {
-		$tkns = token_get_all('<?php ' . $from);
+		$tkns = token_get_all('<?php ' . $from, TOKEN_PARSE);
 		array_shift($tkns);
 		$tkns = array_map(function ($v) {
 			return $this->getToken($v);
@@ -126,7 +126,7 @@ final class RefactorPass extends FormatterPass {
 	}
 
 	private function setTo($to) {
-		$tkns = token_get_all('<?php ' . $to);
+		$tkns = token_get_all('<?php ' . $to, TOKEN_PARSE);
 		array_shift($tkns);
 		$tkns = array_map(function ($v) {
 			return $this->getToken($v);

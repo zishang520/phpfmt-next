@@ -22,7 +22,7 @@ class AutoPreincrement extends AdditionalPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		for ($this->ptr = sizeof($this->tkns) - 1; $this->ptr >= 0; --$this->ptr) {
 			$token = $this->tkns[$this->ptr];
 			$tokenRef = &$this->tkns[$this->ptr];

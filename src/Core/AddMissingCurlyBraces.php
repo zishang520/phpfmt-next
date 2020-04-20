@@ -29,7 +29,7 @@ final class AddMissingCurlyBraces extends FormatterPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 		// Scans from the end to the beginning looking for close curly
 		// braces, whenever one is found ($touchedCurlyClose) skips to

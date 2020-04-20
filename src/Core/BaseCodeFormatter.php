@@ -258,18 +258,18 @@ abstract class BaseCodeFormatter {
 			array_filter($this->passes)
 		);
 		list($foundTokens, $commentStack) = $this->getFoundTokens($source);
-		$this->hasBeforeFormat && $this->beforeFormat($source);
+		$this->hasBeforeFormat && call_user_func([$this, 'beforeFormat'], $source);
 		while (($pass = array_pop($passes))) {
-			$this->hasBeforePass && $this->beforePass($source, $pass);
+			$this->hasBeforePass && call_user_func([$this, 'beforePass'], $source, $pass);
 			if ($pass->candidate($source, $foundTokens)) {
 				if (isset($pass->commentStack)) {
 					$pass->commentStack = $commentStack;
 				}
 				$source = $pass->format($source);
-				$this->hasAfterExecutedPass && $this->afterExecutedPass($source, $pass);
+				$this->hasAfterExecutedPass &&  call_user_func([$this, 'afterExecutedPass'], $source, $pass);
 			}
 		}
-		$this->hasAfterFormat && $this->afterFormat($source);
+		$this->hasAfterFormat && call_user_func([$this, 'afterFormat'], $source);
 		return $source;
 	}
 
@@ -288,7 +288,7 @@ abstract class BaseCodeFormatter {
 	private function getFoundTokens($source) {
 		$foundTokens = [];
 		$commentStack = [];
-		$tkns = token_get_all($source);
+		$tkns = token_get_all($source, TOKEN_PARSE);
 		foreach ($tkns as $token) {
 			list($id, $text) = $this->getToken($token);
 			$foundTokens[$id] = $id;

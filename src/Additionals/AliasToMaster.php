@@ -38,7 +38,7 @@ class AliasToMaster extends AdditionalPass {
 	private $touchedEmptyNs = false;
 
 	public function candidate($source, $foundTokens) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 
 		while (list($index, $token) = eachArray($this->tkns)) {

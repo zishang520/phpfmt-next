@@ -24,7 +24,7 @@ final class ExtraCommaInArray extends FormatterPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 
 		// It scans for possible blocks (parentheses, bracket and curly)
 		// and keep track of which block is actually being addressed. If

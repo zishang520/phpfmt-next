@@ -29,7 +29,7 @@ final class StrictBehavior extends AdditionalPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 
 		while (list($index, $token) = eachArray($this->tkns)) {

@@ -26,7 +26,7 @@ final class AlignDoubleSlashComments extends AdditionalPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 
 		// It injects placeholders before single line comments, in order
@@ -42,7 +42,7 @@ final class AlignDoubleSlashComments extends AdditionalPass {
 					if (LeftAlignComment::NON_INDENTABLE_COMMENT == $text) {
 						$touchedNonAlignableComment = true;
 						$this->appendCode($text);
-						continue;
+						continue 2;
 					}
 
 					$prefix = '';

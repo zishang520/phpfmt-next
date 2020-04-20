@@ -22,7 +22,7 @@ final class EncapsulateNamespaces extends AdditionalPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 		while (list($index, $token) = eachArray($this->tkns)) {
 			list($id, $text) = $this->getToken($token);
@@ -45,7 +45,7 @@ final class EncapsulateNamespaces extends AdditionalPass {
 						}
 						$this->appendCode($this->getCrlf() . ST_CURLY_CLOSE . $this->getCrlf());
 						prev($this->tkns);
-						continue;
+						continue 2;
 					}
 					break;
 				default:

@@ -18,7 +18,7 @@ final class ReindentEqual extends FormatterPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 
 		for ($index = sizeof($this->tkns) - 1; 0 <= $index; --$index) {

@@ -18,7 +18,7 @@ class SplitCurlyCloseAndTokens extends FormatterPass {
 			return false;
 		}
 
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		while (list($index, $token) = eachArray($this->tkns)) {
 			list($id) = $this->getToken($token);
 			$this->ptr = $index;

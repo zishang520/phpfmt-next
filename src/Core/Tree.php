@@ -65,7 +65,7 @@ final class Tree extends FormatterPass {
 	}
 
 	public function format($code) {
-		$tokens = token_get_all($code);
+		$tokens = token_get_all($code, TOKEN_PARSE);
 		$tree = $this->parseTree($tokens);
 		return $this->visit($tree);
 	}

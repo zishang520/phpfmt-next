@@ -86,7 +86,7 @@ EOT;
 	}
 
 	protected function sortUseClauses($source, $splitComma, $removeUnused, $stripBlankLines, $blanklineAfterUseBlock) {
-		$tokens = token_get_all($source);
+		$tokens = token_get_all($source, TOKEN_PARSE);
 
 		// It scans for T_USE blocks (thus skiping "function () use ()")
 		// either in their pure form or aggregated with commas, then it
@@ -254,7 +254,7 @@ EOT;
 	private function sortWithinNamespaces($source) {
 		$classRelatedCount = 0;
 		$namespaceCount = 0;
-		$tokens = token_get_all($source);
+		$tokens = token_get_all($source, TOKEN_PARSE);
 		$touchedTUse = false;
 		while (list(, $token) = eachArray($tokens)) {
 			list($id, $text) = $this->getToken($token);

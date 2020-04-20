@@ -71,6 +71,9 @@ if (!defined('T_SPACESHIP')) {
 if (!defined('T_COALESCE')) {
 	define('T_COALESCE', '??');
 }
+if (!defined('T_DOLLAR')) {
+	define('T_DOLLAR', '$');
+}
 
 define('ST_PARENTHESES_BLOCK', 'ST_PARENTHESES_BLOCK');
 define('ST_BRACKET_BLOCK', 'ST_BRACKET_BLOCK');

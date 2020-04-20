@@ -77,7 +77,7 @@ EOT;
 	}
 
 	private function addUnderscoresBeforeName($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 		$levelTouched = null;
 		while (list($index, $token) = eachArray($this->tkns)) {
@@ -151,7 +151,7 @@ EOT;
 	}
 
 	private function mergeEqualsWithReference($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 		while (list($index, $token) = eachArray($this->tkns)) {
 			list($id, $text) = $this->getToken($token);
@@ -172,7 +172,7 @@ EOT;
 	}
 
 	private function removeSpaceAfterCasts($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 		while (list($index, $token) = eachArray($this->tkns)) {
 			list($id, $text) = $this->getToken($token);
@@ -213,7 +213,7 @@ EOT;
 	}
 
 	private function resizeSpaces($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 		while (list($index, $token) = eachArray($this->tkns)) {
 			list($id, $text) = $this->getToken($token);

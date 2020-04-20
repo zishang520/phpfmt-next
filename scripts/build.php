@@ -43,12 +43,15 @@ if (!empty($newver)) {
 	file_put_contents(__DIR__ . '/../src/version.php', $newver);
 }
 
-class Build extends FormatterPass {
-	public function candidate($source, $foundTokens) {
+class Build extends FormatterPass
+{
+	public function candidate($source, $foundTokens)
+	{
 		return true;
 	}
 
-	public function format($source) {
+	public function format($source)
+	{
 		$this->tkns = token_get_all($source);
 		$this->code = '';
 		$curlyStack = [];
@@ -62,7 +65,7 @@ class Build extends FormatterPass {
 						if ('Extern' == $rText) {
 							$this->walkUntil(ST_CURLY_OPEN);
 							$curlyStack[] = T_NAMESPACE;
-							continue;
+							continue 2;
 						}
 					}
 					$this->appendCode($text);
@@ -78,7 +81,7 @@ class Build extends FormatterPass {
 				case ST_CURLY_CLOSE;
 					$foundId = array_pop($curlyStack);
 					if (T_NAMESPACE == $foundId) {
-						continue;
+						continue 2;
 					}
 					$this->appendCode($text);
 					break;
@@ -186,7 +189,8 @@ $readmeContent = file_get_contents($readmePath);
 
 $cmd = PHP_BINARY . ' ' . __DIR__ . '/../bin/fmt.phar --list-simple';
 $passes = explode(PHP_EOL, trim(`$cmd`));
-$passes = implode(PHP_EOL,
+$passes = implode(
+	PHP_EOL,
 	array_map(function ($v) {
 		return ' * ' . $v;
 	}, $passes)

@@ -30,7 +30,7 @@ final class StripSpaceWithinControlStructures extends AdditionalPass {
 	}
 
 	public function format($source) {
-		$this->tkns = token_get_all($source);
+		$this->tkns = token_get_all($source, TOKEN_PARSE);
 		$this->code = '';
 		$touchedDo = false;
 
@@ -55,7 +55,7 @@ final class StripSpaceWithinControlStructures extends AdditionalPass {
 					if ($this->hasLnAfter()) {
 						eachArray($this->tkns);
 						$this->appendCode($this->newLine);
-						continue;
+						continue 2;
 					}
 
 					break;
@@ -75,7 +75,7 @@ final class StripSpaceWithinControlStructures extends AdditionalPass {
 						if ($this->hasLnAfter()) {
 							eachArray($this->tkns);
 							$this->appendCode($this->newLine);
-							continue;
+							continue 2;
 						}
 					}
 
@@ -99,7 +99,7 @@ final class StripSpaceWithinControlStructures extends AdditionalPass {
 				case ST_CURLY_CLOSE:
 					if ($this->hasLnBefore()) {
 						$this->rtrimAndAppendCode($this->newLine . $text);
-						continue;
+						continue 2;
 					}
 
 					$this->appendCode($text);

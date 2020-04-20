@@ -82,7 +82,7 @@ EOT;
 					list($leftId) = $tkns[$left];
 					list($rightId) = $tkns[$right];
 					if ($leftId == $rightId) {
-						continue;
+						continue 2;
 					}
 
 					$leftPureVariable = $this->isPureVariable($leftId);
@@ -136,7 +136,7 @@ EOT;
 	}
 
 	private function aggregateVariables($source) {
-		$tkns = token_get_all($source);
+		$tkns = token_get_all($source, TOKEN_PARSE);
 		while (list($ptr, $token) = eachArray($tkns)) {
 			list($id, $text) = $this->getToken($token);
 
