@@ -52,7 +52,7 @@ class Build extends FormatterPass
 
 	public function format($source)
 	{
-		$this->tkns = token_get_all($source, TOKEN_PARSE);
+		$this->tkns = token_get_all($source);
 		$this->code = '';
 		$curlyStack = [];
 		while (list($index, $token) = eachArray($this->tkns)) {
@@ -99,7 +99,7 @@ class Build extends FormatterPass
 
 					$source = file_get_contents($fn);
 					$source = (new EncapsulateNamespaces())->format($source);
-					$included = token_get_all($source, TOKEN_PARSE);
+					$included = token_get_all($source);
 					if (T_OPEN_TAG == $included[0][0]) {
 						unset($included[0]);
 					}
