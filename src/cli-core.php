@@ -205,8 +205,6 @@ if ($enableCache && isset($opts['cache'])) {
 	$cache_fn = $opts['cache'];
 	$cache = new Cache($cache_fn);
 	fwrite(STDERR, 'Using cache ...' . PHP_EOL);
-} elseif (!$enableCache) {
-	$cache = new Cache();
 }
 
 $backup = true;

@@ -96,6 +96,11 @@ namespace {
 	require __DIR__ . '/PSR/PSR2ModifierVisibilityStaticOrder.php';
 	require __DIR__ . '/PSR/PSR2SingleEmptyLineAndStripClosingTag.php';
 	require __DIR__ . '/PSR/PsrDecorator.php';
+	require __DIR__ . '/PSR/TranslateNativeCalls.php';
+	require __DIR__ . '/PSR/UpdateVisibility.php';
+	require __DIR__ . '/PSR/ExtractMethods.php';
+	require __DIR__ . '/PSR/Php2GoDecorator.php';
+
 
 	require __DIR__ . '/Additionals/AddMissingParentheses.php';
 	require __DIR__ . '/Additionals/AliasToMaster.php';
