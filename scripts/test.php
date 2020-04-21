@@ -102,7 +102,7 @@ foreach ($cases as $caseIn) {
 	$fmt = new CodeFormatter();
 	$caseOut = str_replace('.in', '.out', $caseIn);
 	$content = file_get_contents($caseIn);
-	$tokens = token_get_all($content);
+	$tokens = token_get_all($content, TOKEN_PARSE);
 	$specialPasses = false;
 	foreach ($tokens as $token) {
 		list($id, $text) = getToken($token);
@@ -179,7 +179,7 @@ if (!$bailOut) {
 		$fmt = new CodeFormatter();
 		$caseOut = str_replace('.in', '.out', $caseIn);
 		$content = file_get_contents($caseIn);
-		$tokens = token_get_all($content);
+		$tokens = token_get_all($content, TOKEN_PARSE);
 		$specialPasses = false;
 		foreach ($tokens as $token) {
 			list($id, $text) = getToken($token);
