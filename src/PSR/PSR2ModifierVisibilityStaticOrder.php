@@ -188,7 +188,7 @@ final class PSR2ModifierVisibilityStaticOrder extends FormatterPass {
 					$visibility = null;
 					$static = null;
 					$skipWhitespaces = false;
-					if ('abstract' == strtolower($finalOrAbstract)) {
+					if ('abstract' == strtolower((string) $finalOrAbstract)) {
 						$finalOrAbstract = null;
 						$this->printUntil(ST_SEMI_COLON);
 						break;
