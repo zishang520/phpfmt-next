@@ -50,7 +50,8 @@ final class PSR2KeywordsLowerCase extends FormatterPass {
 				T_INLINE_HTML == $id ||
 				T_COMMENT == $id ||
 				T_DOC_COMMENT == $id ||
-				T_CONSTANT_ENCAPSED_STRING == $id
+				T_CONSTANT_ENCAPSED_STRING == $id ||
+				T_STRING == $id
 			) {
 				$this->appendCode($text);
 				continue;
