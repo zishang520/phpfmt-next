@@ -33,6 +33,8 @@ final class PSR2ModifierVisibilityStaticOrder extends FormatterPass {
 		$visibility = null;
 		$finalOrAbstract = null;
 		$static = null;
+		$typed = null;
+		$question = null;
 		$skipWhitespaces = false;
 		$touchedClassInterfaceTrait = false;
 		while (list($index, $token) = eachArray($this->tkns)) {
@@ -113,18 +115,40 @@ final class PSR2ModifierVisibilityStaticOrder extends FormatterPass {
 					}
 					$this->appendCode($text);
 					break;
+					case ST_QUESTION:
+						if (!is_null($visibility)) {
+							$question = $text;
+							$skipWhitespaces = true;
+							break;
+						}
+						$this->appendCode($text);
+						break;
+					case T_STRING:
+					case T_ARRAY:
+						if (!is_null($visibility)) {
+							$typed = $text;
+							$skipWhitespaces = true;
+							break;
+						}
+						$this->appendCode($text);
+						break;
 				case T_VARIABLE:
 					if (
 						null !== $visibility ||
 						null !== $finalOrAbstract ||
-						null !== $static
+						null !== $static ||
+						null !== $typed
 					) {
 						null !== $finalOrAbstract && $this->appendCode($finalOrAbstract . $this->getSpace());
 						null !== $visibility && $this->appendCode($visibility . $this->getSpace());
 						null !== $static && $this->appendCode($static . $this->getSpace());
+						null !== $question && $this->appendCode($question);
+						null !== $typed && $this->appendCode($typed . $this->getSpace());
 						$finalOrAbstract = null;
 						$visibility = null;
 						$static = null;
+						$question = null;
+						$typed = null;
 						$skipWhitespaces = false;
 					}
 					$this->appendCode($text);
