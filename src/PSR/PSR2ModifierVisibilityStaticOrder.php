@@ -37,6 +37,7 @@ final class PSR2ModifierVisibilityStaticOrder extends FormatterPass {
 		$question = null;
 		$skipWhitespaces = false;
 		$touchedClassInterfaceTrait = false;
+		$touchedClass = false;
 		while (list($index, $token) = eachArray($this->tkns)) {
 			list($id, $text) = $this->getToken($token);
 			$this->ptr = $index;
@@ -65,10 +66,19 @@ final class PSR2ModifierVisibilityStaticOrder extends FormatterPass {
 					$touchedClassInterfaceTrait = true;
 					$this->appendCode($text);
 					break;
+				case T_USE:
+						if ($touchedClass) {
+							$found[] = T_USE;
+							$touchedClassInterfaceTrait = true;
+						}
+						$touchedClass = false;
+						$this->appendCode($text);
+						break;
 				case ST_CURLY_OPEN:
 				case ST_PARENTHESES_OPEN:
 					if ($touchedClassInterfaceTrait) {
 						$found[] = $text;
+						$touchedClass = true;
 					}
 					$this->appendCode($text);
 					$touchedClassInterfaceTrait = false;
@@ -155,7 +165,7 @@ final class PSR2ModifierVisibilityStaticOrder extends FormatterPass {
 					$this->printUntil(ST_SEMI_COLON);
 					break;
 				case T_FUNCTION:
-					$hasFoundClassOrInterface = isset($found[0]) && (ST_CURLY_OPEN == $found[0] || T_CLASS === $found[0] || T_INTERFACE === $found[0] || T_TRAIT === $found[0]) && $this->rightUsefulTokenIs([T_STRING, ST_REFERENCE]);
+					$hasFoundClassOrInterface = isset($found[0]) && (ST_CURLY_OPEN == $found[0] || T_CLASS === $found[0] || T_INTERFACE === $found[0] || T_TRAIT === $found[0] || T_USE === $found[0]) && $this->rightUsefulTokenIs([T_STRING, ST_REFERENCE]);
 					if ($hasFoundClassOrInterface && null !== $finalOrAbstract) {
 						$this->appendCode($finalOrAbstract . $this->getSpace());
 					}
