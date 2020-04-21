@@ -37,7 +37,7 @@ final class PSR2CurlyOpenNextLine extends FormatterPass {
 				case T_TRAIT:
 				case T_CLASS:
 					$this->appendCode($text);
-					if ($this->leftUsefulTokenIs(T_DOUBLE_COLON)) {
+					if ($this->leftTokenIs([T_NEW]) || $this->leftUsefulTokenIs(T_DOUBLE_COLON)) {
 						break;
 					}
 					while (list($index, $token) = eachArray($this->tkns)) {
